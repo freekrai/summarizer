@@ -11,7 +11,7 @@ You can run demo.php to see it in action, or look at any job posting on [workerp
 
 ## How this works
 
-Here's a step-bystep explanation of how and why this algorithm works.
+Here's a step-by-step explanation of how and why this algorithm works.
 
 ### Intersecting Text:
 
@@ -19,9 +19,9 @@ This function receives two sentences, and returns a score for the intersection b
 
 Each sentence is split into words, we then count how many common words we have, and then normalize the result with the average length of the two sentences.
 
-### The Sentences Dictionary:
+### The Dictionary:
 
-This part really is the 'Heart' of the algorithm. It receives our text as input, and calculates a score for each sentence. The calculations is composed of two steps:
+This part really is the 'Heart' of the algorithm. It takes our text, and calculates a score for each sentence. The calculations is composed of two steps:
 
 1. First, we split each paragraph into sentences, and store the intersection value between each sentence compared to every other sentence in the paragraph in an array.
 
