@@ -13,25 +13,25 @@ You can run demo.php to see it in action, or look at any job posting on [workerp
 
 Here's a step-bystep explanation of how and why this algorithm works.
 
-### The intersection function:
+### Intersecting Text:
 
 This function receives two sentences, and returns a score for the intersection between them.
 
-each sentence is split into words, we then count how many common words we have, and then we normalize the result with the average length of the two sentences.
+Each sentence is split into words, we then count how many common words we have, and then normalize the result with the average length of the two sentences.
 
-### The sentences dictionary:
+### The Sentences Dictionary:
 
 This part really is the 'Heart' of the algorithm. It receives our text as input, and calculates a score for each sentence. The calculations is composed of two steps:
 
-1. In the first step we split the text into sentences, and store the intersection value between each two sentences in a two-dimensional array. So values[0][2] will hold the intersection score between sentence #1 and sentence #3.
+1. First, we split each paragraph into sentences, and store the intersection value between each sentence compared to every other sentence in the paragraph in an array.
 
-2. In the second step we calculate an individual score for each sentence and store it in a key-value dictionary, where the sentence itself is the key and the value is the total score. We do that just by summing up all its intersections with the other sentences in the text (not including itself).
+2. Second, we calculate an individual score for each sentence and store it in a key-value dictionary, where the sentence itself is the key and the value is the total score. We do that just by summing up all its intersections with the other sentences in the text (not including itself).
 
-### Building the summary:
+### Building The Summary:
 
 Obviously, the final step of our algorithm is generating the final summary. We do that by splitting our text into paragraphs, and then we choose the best sentence from each paragraph according to our sentences dictionary which was generated above.
 
-### Why this works
+### Why This Works
 
 There are two main reasons why this algorithm works: 
 
