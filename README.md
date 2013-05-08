@@ -35,8 +35,8 @@ Obviously, the final step of our algorithm is generating the final summary. We d
 
 There are two main reasons why this algorithm works: 
 
-1. The first (and obvious) reason is that a paragraph is a logical atomic unit of the text. In simple words - there is probably a very good reason why the author decided to split his text that way.
+1. The first reason is that a paragraph is a logical atomic unit of the text. In simple words - there is probably a very good reason why the author decided to split his text that way.
 
-2. The second (and maybe less obvious..) reason is that if two sentences have a good intersection, they probably hold the same information. 
+2. The second reason is that if two sentences have a good intersection, they probably hold the same information. 
 
 So if one sentence has a good intersection with many other sentences, it probably holds some information from each one of them - or in other words, this is probably a key sentence in our text!
