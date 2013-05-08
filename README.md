@@ -15,7 +15,7 @@ Here's a step-bystep explanation of how and why this algorithm works.
 
 ### Intersecting Text:
 
-This function receives two sentences, and returns a score for the intersection between them.
+This function receives two sentences, and returns a score for the intersection between those two sentences.
 
 Each sentence is split into words, we then count how many common words we have, and then normalize the result with the average length of the two sentences.
 
