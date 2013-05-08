@@ -9,7 +9,7 @@ It works by analyzing each sentence in each paragraph and returning the most rel
 
 You can run demo.php to see it in action, or look at any job posting on [workerpod.com](http://workerpod.com).
 
-## The Summarization Algorithm
+## How this works
 
 Here's a step-bystep explanation of how and why this algorithm works.
 
