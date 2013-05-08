@@ -3,11 +3,11 @@ Summarizer
 
 PHP class to summarize content into short summary
 
-This class was created to give more intelligent excerpts to job postings on [http://workerpod.com](workerpod.com), but can be used to summarize any content.
+This class was created to give more intelligent excerpts to job postings on [workerpod.com](http://workerpod.com), but can be used to summarize any content.
 
 It works by analyzing each sentence in each paragraph and returning the most relevant sentence of that paragraph.
 
-You can run the demo.php to see it in action, or look at any job posting on [http://workerpod.com](workerpod.com).
+You can run the demo.php to see it in action, or look at any job posting on [workerpod.com](http://workerpod.com).
 
 ## The Summarization Algorithm
 
