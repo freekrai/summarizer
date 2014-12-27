@@ -4,16 +4,20 @@ class Summarizer{
 	public $orginal;
 	public $summary;
 	
-	public function __constructor(){
+	public function __construct(){
 		return true;		
 	}
 	public function split_content_to_sentences($content){
-        $content = str_replace("\n",". ",$content);
-        return explode(". ",$content);
+		$content = preg_split('/[.?!]/', $content, NULL ,PREG_SPLIT_DELIM_CAPTURE );
+		$strcontent = '';
+		foreach($content as $key => $value) {
+			$strcontent .= str_replace("\n", ". ", $value);
+		}
+        return explode(". ", $strcontent);
 	}
 
     public function split_content_to_paragraphs($content){
-		return explode("\n\n",$content);
+		return explode("\n\n", $content);
 	}
 
 	public function sentences_intersection($sent1, $sent2){
@@ -28,7 +32,7 @@ class Summarizer{
 		return $avg;
 	}
 	public function format_sentence($sentence){
-//		$sentence = preg_replace('/[^a-z\d ]/i', '', $sentence);
+		//$sentence = preg_replace('/[^a-z\d ]/i', '', $sentence);
 		$sentence = preg_replace("/[^a-zA-Z0-9\s]/", "", $sentence);
 		$sentence = str_replace(" ","",$sentence);
         return $sentence;
@@ -37,17 +41,17 @@ class Summarizer{
 		$sentences = $this->split_content_to_sentences($content);
 		$n = count( $sentences );
 		$values = array();
-		for($i = 0;$i <= $n;$i++){
+		for($i = 0;$i < $n;$i++){
 			$s1 = $sentences[$i];
-			for($j = 0;$j <= $n;$j++){
+			for($j = 0;$j < $n;$j++){
 				$s2 = $sentences[$j];
 				$values[$i][$j] = $this->sentences_intersection($s1, $s2);
 			}
 		}
 		$sentences_dic = array();
-		for($i = 0;$i <= $n;$i++){
+		for($i = 0;$i < $n;$i++){
 			$score = 0;		
-			for($j = 0;$j <= $n;$j++){
+			for($j = 0;$j < $n;$j++){
 					if( $i == $j)	continue;
 					$score = $score + $values[$i][$j];
 			}
