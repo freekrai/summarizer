@@ -7,16 +7,17 @@ class Summarizer{
 	public function __construct(){
 		return true;		
 	}
+	
 	public function split_content_to_sentences($content){
 		$content = preg_split('/[.?!]/', $content, NULL ,PREG_SPLIT_DELIM_CAPTURE );
 		$strcontent = '';
 		foreach($content as $key => $value) {
 			$strcontent .= str_replace("\n", ". ", $value);
 		}
-        return explode(". ", $strcontent);
+        	return explode(". ", $strcontent);
 	}
 
-    public function split_content_to_paragraphs($content){
+    	public function split_content_to_paragraphs($content){
 		return explode("\n\n", $content);
 	}
 
@@ -31,12 +32,14 @@ class Summarizer{
 		$avg = $i / (($cs1+$cs2) / 2);
 		return $avg;
 	}
+	
 	public function format_sentence($sentence){
 		//$sentence = preg_replace('/[^a-z\d ]/i', '', $sentence);
 		$sentence = preg_replace("/[^a-zA-Z0-9\s]/", "", $sentence);
 		$sentence = str_replace(" ","",$sentence);
-        return $sentence;
+        	return $sentence;
 	}
+	
 	public function get_sentences_ranks($content){
 		$sentences = $this->split_content_to_sentences($content);
 		$n = count( $sentences );
@@ -76,10 +79,10 @@ class Summarizer{
 				}
 			}
 		}
-        return $best_sentence;
+        	return $best_sentence;
 	}
 
-    public function get_summary($content){
+    	public function get_summary($content){
 		$sentences_dic = $this->get_sentences_ranks($content);
 		$paragraphs = $this->split_content_to_paragraphs($content);
 
@@ -95,6 +98,7 @@ class Summarizer{
 		$this->summary = implode("\n",$summary);
 		return $this->summary;
 	}
+	
 	function how_we_did(){
 	    print "<hr />";
 	    print "Original Length ". strlen($this->original);
@@ -104,5 +108,4 @@ class Summarizer{
 	    print "Summary Ratio: ".(100 - (100 * (strlen($this->summary) / (strlen($this->original)))));
 		echo "<br />";
 	}
-
 }
