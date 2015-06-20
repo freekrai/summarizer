@@ -1,43 +1,90 @@
 <?php
+/**
+ * @class Summarizer
+ * @author Roger Stringer <roger@freekrai.net>
+ * @author Alexander Jank <himself@alexanderjank.de>
+ */
 class Summarizer{
-	public $sentences_dic = array();
+
+	/**
+	 * Array containgin the sentences of a given document
+	 * @var array
+	 */
+	public $sentences_dic = [];
+
+	/**
+	 * the original document
+	 * @var string
+	 */
 	public $orginal;
+
+	/**
+	 * the generated summary of a given document
+	 * @var string
+	 */
 	public $summary;
 	
-	public function __construct(){
-		return true;		
-	}
-	public function split_content_to_sentences($content){
+	/**
+	 * split a given document to sentcnces
+	 * @param string $content
+	 * @return array snatences
+	 */
+	public function split_content_to_sentences($content) {
 		$content = preg_split('/[.?!]/', $content, NULL ,PREG_SPLIT_DELIM_CAPTURE );
 		$strcontent = '';
 		foreach($content as $key => $value) {
 			$strcontent .= str_replace("\n", ". ", $value);
 		}
-        return explode(". ", $strcontent);
+		return explode(". ", $strcontent);
 	}
 
-    public function split_content_to_paragraphs($content){
+	/**
+	 * split given content to paragraphs
+	 * @param string $content
+	 * @return array paragraphs
+	 */
+	public function split_content_to_paragraphs($content) {
 		return explode("\n\n", $content);
 	}
 
-	public function sentences_intersection($sent1, $sent2){
-		$s1 = explode(" ",$sent1);
-		$s2 = explode(" ",$sent2);
+	/**
+	 * intersect between two given sentences
+	 * @param  string $sent1 sentence one
+	 * @param  string $sent2 sentence two
+	 * @return float
+	 */
+	public function sentences_intersection($sent1, $sent2) {
+		$s1  = explode(" ",$sent1);
+		$s2  = explode(" ",$sent2);
 		$cs1 = count($s1);
 		$cs2 = count($s2);
-		if( ($cs1 + $cs2) == 0 )	return 0;
+		if (($cs1 + $cs2) == 0) {
+			return 0;
+		}
 
-		$i = count( array_intersect($s1,$s2) );
+		$i   = count(array_intersect($s1,$s2));
 		$avg = $i / (($cs1+$cs2) / 2);
 		return $avg;
 	}
-	public function format_sentence($sentence){
+
+	/**
+	 * format a sentence
+	 * @param string $sentence
+	 * @return string
+	 */
+	public function format_sentence($sentence) {
 		//$sentence = preg_replace('/[^a-z\d ]/i', '', $sentence);
 		$sentence = preg_replace("/[^a-zA-Z0-9\s]/", "", $sentence);
 		$sentence = str_replace(" ","",$sentence);
-        return $sentence;
+		return $sentence;
 	}
-	public function get_sentences_ranks($content){
+
+	/**
+	 * get the rank for each sentence in the content
+	 * @param string $content
+	 * @return array
+	 */
+	public function get_sentences_ranks($content) {
 		$sentences = $this->split_content_to_sentences($content);
 		$n = count( $sentences );
 		$values = array();
@@ -61,7 +108,12 @@ class Summarizer{
 		return $sentences_dic;
 	}
 
-	public function get_best_sentence($paragraph){
+	/**
+	 * get the best sentence of one paragraph
+	 * @param  string $paragraph
+	 * @return string the best sentence
+	 */
+	public function get_best_sentence($paragraph) {
 		$sentences = $this->split_content_to_sentences($paragraph);
 		if( count($sentences) < 2 )	return "";
 		$best_sentence = "";
@@ -76,10 +128,15 @@ class Summarizer{
 				}
 			}
 		}
-        return $best_sentence;
+		return $best_sentence;
 	}
 
-    public function get_summary($content){
+	/**
+	 * get teh summary of given content or document
+	 * @param string $content
+	 * @return string the summary
+	 */
+	public function get_summary($content) {
 		$sentences_dic = $this->get_sentences_ranks($content);
 		$paragraphs = $this->split_content_to_paragraphs($content);
 
@@ -95,14 +152,19 @@ class Summarizer{
 		$this->summary = implode("\n",$summary);
 		return $this->summary;
 	}
-	function how_we_did(){
-	    print "<hr />";
-	    print "Original Length ". strlen($this->original);
-		echo "<br />";
-	    print "Summary Length ".strlen($this->summary);
-		echo "<br />";
-	    print "Summary Ratio: ".(100 - (100 * (strlen($this->summary) / (strlen($this->original)))));
-		echo "<br />";
-	}
 
+	/**
+	 * get statistics data
+	 * @return array
+	 */
+	public function how_we_did() {
+		return [
+			'length' => [
+				'original' => strlen($this->original),
+				'summary' => strlen($this->summary),
+				'differnence' => strlen($this->original) - strlen($this->summary)
+			],
+				'ratio' => (100 - (100 * (strlen($this->summary) / (strlen($this->original)))))
+			];
+	}
 }
