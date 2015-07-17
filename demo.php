@@ -21,7 +21,7 @@ ob_end_clean();
     $st = new Summarizer();
     $summary = $st->get_summary($content);
 	echo $summary;
-	echo $st->how_we_did();
+	var_dump($st->how_we_did());
 
 
 ?>
